@@ -3,6 +3,7 @@
 namespace UniSharp\LaravelFilemanager\Middlewares;
 
 use Closure;
+use Illuminate\Support\Str;
 use UniSharp\LaravelFilemanager\Lfm;
 
 class MultiUser
@@ -32,11 +33,11 @@ class MultiUser
 
     private function validDir($previous_dir)
     {
-        if (starts_with($previous_dir, $this->helper->getRootFolder('share'))) {
+        if (class_exists('Str') ? Str::startsWith($previous_dir, $this->helper->getRootFolder('share')): starts_with($previous_dir, $this->helper->getRootFolder('share'))) {
             return true;
         }
 
-        if (starts_with($previous_dir, $this->helper->getRootFolder('user'))) {
+        if (class_exists('Str') ? Str::startsWith($previous_dir, $this->helper->getRootFolder('user')) : starts_with($previous_dir, $this->helper->getRootFolder('user'))) {
             return true;
         }
 
